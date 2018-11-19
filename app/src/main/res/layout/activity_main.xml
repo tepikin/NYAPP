@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="match_parent">
+
+
+    <ImageView android:layout_width="match_parent"
+               android:layout_height="171dp"
+               android:layout_gravity="bottom"
+               android:scaleType="fitXY"
+               android:src="@drawable/main_snow"/>
+
+    <ImageView android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="bottom|right"
+               android:scaleType="centerInside"
+               android:layout_marginBottom="90dp"
+               android:src="@drawable/main_home"/>
+
+    <ImageView android:layout_width="match_parent"
+               android:id="@+id/frontImage"
+               android:layout_height="match_parent"
+               android:scaleType="centerCrop"
+               android:src="@drawable/main_front"/>
+
+    <ImageView android:layout_width="10dp"
+               android:layout_height="10dp"
+               android:layout_gravity="top|left"
+               android:id="@+id/galleryBig"/>
+    <ImageView android:layout_width="10dp"
+               android:layout_height="10dp"
+               android:layout_gravity="top|left"
+               android:id="@+id/gallerySmall"/>
+    <ImageView android:layout_width="10dp"
+               android:layout_height="10dp"
+               android:layout_gravity="top|left"
+               android:id="@+id/cameraBig"/>
+    <ImageView android:layout_width="10dp"
+               android:layout_height="10dp"
+               android:layout_gravity="top|left"
+               android:id="@+id/cameraSmall"/>
+</FrameLayout>
