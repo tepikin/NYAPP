@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#BDBDBD"
+        android:orientation="vertical"
         tools:context=".EditActivity">
-    <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/mainImage"/>
-</FrameLayout>
+
+    <View android:layout_width="0dp"
+          android:layout_height="@dimen/header_height"
+          android:background="@color/colorPrimary"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent" android:id="@+id/view"/>
+    <ImageView android:id="@+id/saveView"
+               android:layout_width="@dimen/header_height"
+               android:layout_height="@dimen/header_height"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintTop_toTopOf="parent"/>
+    <ImageView android:id="@+id/shareView"
+               android:layout_width="@dimen/header_height"
+               android:layout_height="@dimen/header_height"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintEnd_toStartOf="@+id/saveView"/>
+
+    <ImageView android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:id="@+id/mainImageView"
+               android:paddingBottom="@dimen/main_image_padding"
+               android:layout_marginTop="@dimen/header_height"
+               android:layout_marginBottom="@dimen/bottom_panel_height"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"/>
+    <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                               android:background="#942196F3"
+                                               android:id="@+id/srickersRecyclerView"
+                                               android:layout_height="100dp"
+                                               app:layout_constraintBottom_toTopOf="@id/groupsRecyclerView"/>
+    <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                               android:background="@color/colorPrimary"
+                                               android:id="@+id/groupsRecyclerView"
+                                               android:layout_height="@dimen/bottom_panel_height"
+                                               app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
