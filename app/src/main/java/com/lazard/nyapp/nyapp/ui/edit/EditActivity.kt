@@ -2,6 +2,7 @@ package com.lazard.nyapp.nyapp.ui.edit
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
@@ -29,7 +30,8 @@ class EditActivity : BaseActivity() {
         }
     }
 
-    val tempImageFile = File("tempImage")
+    val tempImageFile by lazy {  File(getFilesDir().absolutePath+"/tempImage")}
+    val bitmap get()= (mainImageView.drawable as BitmapDrawable).bitmap
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,19 +40,34 @@ class EditActivity : BaseActivity() {
         mainImageView.doOnLayout {loadImage()}
         initRecyclers()
 
+        saveView.setOnClickListener {  }
+        shareView.setOnClickListener {  }
+
     }
 
+    val groupsAdapter  by lazy {  GroupsAdapter(this, ::onGroupClick)}
+    val stickerAdapter by lazy {  StickerAdapter(this, ::onStickerClick).apply { groupsAdapter.items.firstOrNull()?.items?.apply{items.addAll(this) }}}
+
     private fun initRecyclers() {
-        groupsRecyclerView.layoutManager = LinearLayoutManager(this)
-        groupsRecyclerView.adapter = GroupsAdapter(this, ::onGroupClick)
+        groupsRecyclerView.layoutManager = LinearLayoutManager(this).apply { orientation = LinearLayoutManager.HORIZONTAL }
+        groupsRecyclerView.adapter = groupsAdapter
         groupsRecyclerView.setHasFixedSize(true)
-        srickersRecyclerView.layoutManager = LinearLayoutManager(this)
-        srickersRecyclerView.adapter = StickerAdapter(this,::onStickerClick)
+        srickersRecyclerView.layoutManager = LinearLayoutManager(this).apply { orientation = LinearLayoutManager.HORIZONTAL }
+        srickersRecyclerView.adapter = stickerAdapter
         srickersRecyclerView.setHasFixedSize(true)
     }
 
-    private fun onGroupClick(stickerGroup: StickerGroup?) {}
-    private fun onStickerClick(stickerGroup: StickerItem?) {}
+    private fun onGroupClick(stickerGroup: StickerGroup?) {
+        stickerGroup?:return
+        stickerAdapter.items.apply {
+            clear()
+            addAll(stickerGroup.items)
+        }
+        stickerAdapter.notifyDataSetChanged()
+    }
+    private fun onStickerClick(stickerItem: StickerItem?) {
+        mainImageView.addControllerAsynch(stickerItem?.fullName,-1,null)
+    }
 
     private fun loadImage() {
         try {
@@ -59,6 +76,7 @@ class EditActivity : BaseActivity() {
 
                 Picasso.get()
                     .load(tempImageFile)
+                    .resize(mainImageView.width,mainImageView.height)
                     .centerInside()
                     .into(mainImageView)
             }
@@ -71,6 +89,14 @@ class EditActivity : BaseActivity() {
     private fun cantLoadImage() {
         Toast.makeText(this, "Can't Load Image", Toast.LENGTH_SHORT).show()
         finish()
+    }
+
+    fun hideWater() {
+
+    }
+
+    fun showWater() {
+
     }
 
 }

@@ -8,7 +8,6 @@ import java.io.InputStream
 import java.io.OutputStream
 
 
-
 fun InputStream.copyAndClose(outputStream: OutputStream) =
     use { input -> outputStream.use { input.copyTo(it);it.flush() } }
 
@@ -47,3 +46,7 @@ object BitmapUtils {
         }
     }
 }
+
+val Context.displayMetrics get() = this.getResources().getDisplayMetrics()
+
+fun Bitmap?.recycleSafe() {if(this?.isRecycled == false)this.recycle()}

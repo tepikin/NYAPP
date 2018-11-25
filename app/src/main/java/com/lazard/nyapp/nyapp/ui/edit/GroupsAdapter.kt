@@ -4,13 +4,23 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.lazard.nyapp.nyapp.R
+import com.lazard.nyapp.nyapp.domain.StickersFactory
 import com.lazard.nyapp.nyapp.model.StickerGroup
+import com.lazard.nyapp.nyapp.util.Utils
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_edit.*
 
 class GroupsAdapter(context:Context,val listener:(StickerGroup?)->Unit) : RecyclerView.Adapter<GroupsAdapter.Holder>() {
     val layout = LayoutInflater.from(context)
-    val items = arrayListOf<StickerGroup>()
+    val items = mutableListOf<StickerGroup>()
+
+    init {
+        items.addAll(StickersFactory(context).getStickers())
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         return Holder(layout.inflate(R.layout.group_item,parent,false))
     }
@@ -29,6 +39,12 @@ class GroupsAdapter(context:Context,val listener:(StickerGroup?)->Unit) : Recycl
         fun bind(stickerGroup: StickerGroup) {
             this.stickerGroup= stickerGroup
 
+            val size = Utils.dpToPx(48f,itemView.context).toInt()
+            Picasso.get()
+                .load("file:///android_asset/groups/${stickerGroup.name}")
+                .resize(size,size)
+                .centerInside()
+                .into(itemView as ImageView)
         }
 
     }

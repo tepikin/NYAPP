@@ -17,15 +17,19 @@
     <ImageView android:id="@+id/saveView"
                android:layout_width="@dimen/header_height"
                android:layout_height="@dimen/header_height"
+               android:scaleType="centerInside"
+               android:src="@drawable/ic_save"
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintTop_toTopOf="parent"/>
     <ImageView android:id="@+id/shareView"
                android:layout_width="@dimen/header_height"
                android:layout_height="@dimen/header_height"
+               android:scaleType="centerInside"
+               android:src="@drawable/ic_share"
                app:layout_constraintTop_toTopOf="parent"
                app:layout_constraintEnd_toStartOf="@+id/saveView"/>
 
-    <ImageView android:layout_width="match_parent"
+    <com.lazard.nyapp.nyapp.ui.edit.stickers.stickersView.ImageViewRotate android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:id="@+id/mainImageView"
                android:paddingBottom="@dimen/main_image_padding"
