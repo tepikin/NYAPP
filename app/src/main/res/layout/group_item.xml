@@ -7,4 +7,4 @@
         android:background="#1976D2"
         android:orientation="vertical"
         android:scaleType="centerInside"
-        tools:context=".EditActivity"/>
+        tools:context=".ui.edit.EditActivity"/>

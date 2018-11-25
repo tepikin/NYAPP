@@ -1,4 +1,4 @@
-package com.lazard.nyapp.nyapp
+package com.lazard.nyapp.nyapp.ui.main
 
 import android.graphics.Rect
 import android.graphics.RectF
@@ -6,9 +6,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.toRectF
 import androidx.core.view.doOnLayout
+import com.lazard.nyapp.nyapp.R
+import com.lazard.nyapp.nyapp.ui.BaseActivity
+import com.lazard.nyapp.nyapp.ui.edit.EditActivity
 import com.lazard.nyapp.picturetaker.PictureTaker
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File

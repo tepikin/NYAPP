@@ -1,4 +1,4 @@
-package com.lazard.nyapp.nyapp
+package com.lazard.nyapp.nyapp.util
 
 import android.content.Context
 import android.graphics.Bitmap

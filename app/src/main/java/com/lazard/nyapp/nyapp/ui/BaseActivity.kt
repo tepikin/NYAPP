@@ -1,4 +1,4 @@
-package com.lazard.nyapp.nyapp
+package com.lazard.nyapp.nyapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.CoroutineScope

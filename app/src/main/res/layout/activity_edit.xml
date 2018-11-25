@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:background="#BDBDBD"
         android:orientation="vertical"
-        tools:context=".EditActivity">
+        tools:context=".ui.edit.EditActivity">
 
     <View android:layout_width="0dp"
           android:layout_height="@dimen/header_height"

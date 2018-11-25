@@ -1,4 +1,4 @@
-package com.lazard.nyapp.nyapp
+package com.lazard.nyapp.nyapp.ui.edit
 
 import android.content.Context
 import android.content.Intent
@@ -7,6 +7,11 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.lazard.nyapp.nyapp.R
+import com.lazard.nyapp.nyapp.util.copyAndClose
+import com.lazard.nyapp.nyapp.model.StickerGroup
+import com.lazard.nyapp.nyapp.model.StickerItem
+import com.lazard.nyapp.nyapp.ui.BaseActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.coroutines.async
@@ -37,16 +42,15 @@ class EditActivity : BaseActivity() {
 
     private fun initRecyclers() {
         groupsRecyclerView.layoutManager = LinearLayoutManager(this)
-        groupsRecyclerView.adapter = GroupsAdapter(this,::onGroupClick)
+        groupsRecyclerView.adapter = GroupsAdapter(this, ::onGroupClick)
         groupsRecyclerView.setHasFixedSize(true)
         srickersRecyclerView.layoutManager = LinearLayoutManager(this)
-        srickersRecyclerView.adapter = stickersAdapter
+        srickersRecyclerView.adapter = StickerAdapter(this,::onStickerClick)
         srickersRecyclerView.setHasFixedSize(true)
     }
 
-    private fun onGroupClick(stickerGroup: StickerGroup?) {
-
-    }
+    private fun onGroupClick(stickerGroup: StickerGroup?) {}
+    private fun onStickerClick(stickerGroup: StickerItem?) {}
 
     private fun loadImage() {
         try {
