@@ -5,11 +5,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion compileSdk_version.toInteger()
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.lazard.nyapp.nyapp"
-        minSdkVersion minSdk_version.toInteger()
-        targetSdkVersion targetSdk_version.toInteger()
+        minSdkVersion 15
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -19,10 +19,22 @@ android {
             }
         }
     }
+
+    signingConfigs {
+        tb {
+            keyAlias 'NYAPP'
+            keyPassword 'kmdf9834fg0gbv'
+            storeFile file('../keystore')
+            storePassword 'kmdf9834fg0gbv)'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.tb
         }
     }
     externalNativeBuild {
@@ -50,11 +62,9 @@ dependencies {
     implementation 'android.arch.navigation:navigation-testing-ktx:1.0.0-alpha06'
     implementation 'android.arch.navigation:navigation-ui-ktx:1.0.0-alpha07'
     implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha11'
-    implementation 'com.google.android.material:material:1.1.0-alpha01'
+    implementation 'com.google.android.material:material:1.0.0-alpha1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation project(':PictureTaker')
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation project(path: ':androidSVG_12')
-    implementation 'com.google.code.gson:gson:2.8.5'}
+}
