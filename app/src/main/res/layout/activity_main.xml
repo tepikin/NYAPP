@@ -6,39 +6,61 @@
         android:layout_height="match_parent">
 
 
-    <ImageView android:layout_width="match_parent"
-               android:layout_height="171dp"
-               android:layout_gravity="bottom"
-               android:scaleType="fitXY"
-               android:src="@drawable/main_snow"/>
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="171dp"
+            android:layout_gravity="bottom"
+            android:scaleType="fitXY"
+            android:src="@drawable/main_snow"/>
 
-    <ImageView android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="bottom|right"
-               android:scaleType="centerInside"
-               android:layout_marginBottom="90dp"
-               android:src="@drawable/main_home"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:scaleType="centerInside"
+            android:layout_marginBottom="90dp"
+            android:src="@drawable/main_home"/>
 
-    <ImageView android:layout_width="match_parent"
-               android:id="@+id/frontImage"
-               android:layout_height="match_parent"
-               android:scaleType="centerCrop"
-               android:src="@drawable/main_front"/>
+    <ImageView
+            android:layout_width="match_parent"
+            android:id="@+id/frontImage"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/main_sun"/>
 
-    <ImageView android:layout_width="10dp"
-               android:layout_height="10dp"
-               android:layout_gravity="top|left"
-               android:id="@+id/galleryBig"/>
-    <ImageView android:layout_width="10dp"
-               android:layout_height="10dp"
-               android:layout_gravity="top|left"
-               android:id="@+id/gallerySmall"/>
-    <ImageView android:layout_width="10dp"
-               android:layout_height="10dp"
-               android:layout_gravity="top|left"
-               android:id="@+id/cameraBig"/>
-    <ImageView android:layout_width="10dp"
-               android:layout_height="10dp"
-               android:layout_gravity="top|left"
-               android:id="@+id/cameraSmall"/>
+    <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:tint="@color/selector_tint_black_yellow_press"
+            android:layout_gravity="top|left"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_main_gallery"
+            android:id="@+id/galleryBig"/>
+
+    <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:tint="@color/selector_tint_black_yellow_press"
+            android:layout_gravity="top|left"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_main_gallery"
+            android:id="@+id/gallerySmall"/>
+
+    <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:tint="@color/selector_tint_black_yellow_press"
+            android:layout_gravity="top|left"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_main_camera"
+            android:id="@+id/cameraBig"/>
+
+    <ImageView
+            android:layout_width="10dp"
+            android:scaleType="fitCenter"
+            android:layout_height="10dp"
+            android:src="@drawable/ic_main_camera"
+            android:tint="@color/selector_tint_black_yellow_press"
+            android:layout_gravity="top|left"
+            android:id="@+id/cameraSmall"/>
 </FrameLayout>

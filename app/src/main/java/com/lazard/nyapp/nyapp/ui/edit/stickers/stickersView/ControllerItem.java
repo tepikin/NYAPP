@@ -44,9 +44,9 @@ public abstract class ControllerItem {
     private float strokeWidthLight = Utils.INSTANCE.dpToPx(1.5f,
             BaseApplication.Companion.getInstance());
 
-    private int borderColorDark = Color.argb(255 * 40 / 100, 0, 0, 0);
+    private int borderColorDark = Color.parseColor("#66BDBDBD");
 
-    private int borderColorLight = Color.argb(255 * 70 / 100, 255, 255, 255);
+    private int borderColorLight = Color.parseColor("#B21976D2");
 
     private Drawable drawableRotate;
 

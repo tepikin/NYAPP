@@ -16,6 +16,8 @@ import kotlinx.android.synthetic.main.activity_edit.*
 class GroupsAdapter(context:Context,val listener:(StickerGroup?)->Unit) : RecyclerView.Adapter<GroupsAdapter.Holder>() {
     val layout = LayoutInflater.from(context)
     val items = mutableListOf<StickerGroup>()
+    fun getSelectedGroup() = items.find { it.isSelected }
+    fun setSelectedGroup(group:StickerGroup) {items.forEach{ it.isSelected=false };group.isSelected=true}
 
     init {
         items.addAll(StickersFactory(context).getStickers())
@@ -38,7 +40,7 @@ class GroupsAdapter(context:Context,val listener:(StickerGroup?)->Unit) : Recycl
         }
         fun bind(stickerGroup: StickerGroup) {
             this.stickerGroup= stickerGroup
-
+            itemView.isSelected=stickerGroup.isSelected
             val size = Utils.dpToPx(48f,itemView.context).toInt()
             Picasso.get()
                 .load("file:///android_asset/groups/${stickerGroup.name}")

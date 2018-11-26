@@ -2,10 +2,18 @@ package com.lazard.nyapp.nyapp.ui.edit
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
+import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
+import androidx.core.content.FileProvider
+import androidx.core.os.EnvironmentCompat
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lazard.nyapp.nyapp.R
@@ -13,11 +21,20 @@ import com.lazard.nyapp.nyapp.util.copyAndClose
 import com.lazard.nyapp.nyapp.model.StickerGroup
 import com.lazard.nyapp.nyapp.model.StickerItem
 import com.lazard.nyapp.nyapp.ui.BaseActivity
+import com.lazard.nyapp.nyapp.ui.edit.stickers.ApplyStickers
+import com.lazard.nyapp.nyapp.ui.edit.stickers.stickersView.PngItem
+import com.lazard.nyapp.nyapp.ui.edit.stickers.stickersView.StickersAction
+import com.lazard.nyapp.nyapp.ui.edit.stickers.stickersView.SvgItem
+import com.lazard.nyapp.nyapp.ui.edit.stickers.stickersView.TextControllerItem
+import com.lazard.nyapp.nyapp.util.SimpleAnimatorListener
+import com.lazard.nyapp.picturetaker.getFileProviderUri
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import org.jetbrains.anko.toast
 import java.io.File
+import java.util.ArrayList
 
 
 class EditActivity : BaseActivity() {
@@ -40,9 +57,36 @@ class EditActivity : BaseActivity() {
         mainImageView.doOnLayout {loadImage()}
         initRecyclers()
 
-        saveView.setOnClickListener {  }
-        shareView.setOnClickListener {  }
+        saveView.setOnClickListener { saveBitmap() }
+        shareView.setOnClickListener { shareBitmap() }
 
+    }
+
+    private fun shareBitmap() {
+        val uri = saveBitmapLocal()
+
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.setDataAndType(uri, "image/*")
+        startActivity(intent)
+    }
+
+
+    private fun saveBitmap() {
+        val uri = saveBitmapLocal()
+        val intent = Intent()
+        intent.action = Intent.ACTION_VIEW
+        intent.setDataAndType(uri, "image/*")
+        startActivity(intent)
+    }
+
+    private fun saveBitmapLocal(): Uri? {
+        val externalFile =
+            File("${getExternalFilesDir(Environment.DIRECTORY_PICTURES)}/IMG_${System.currentTimeMillis()}.jpg")
+        ApplyStickers().saveBitmap(mainImageView, tempImageFile, externalFile)
+        MediaScannerConnection.scanFile(this, arrayOf(externalFile.absolutePath), null, null)
+        val uri = externalFile.getFileProviderUri(this)
+        return uri
     }
 
     val groupsAdapter  by lazy {  GroupsAdapter(this, ::onGroupClick)}
@@ -59,12 +103,42 @@ class EditActivity : BaseActivity() {
 
     private fun onGroupClick(stickerGroup: StickerGroup?) {
         stickerGroup?:return
+        if (groupsAdapter.getSelectedGroup()==stickerGroup){
+            hideStikersPanel()
+            stickerGroup.isSelected = false
+            groupsAdapter.notifyDataSetChanged()
+            return
+        }
+
+        groupsAdapter.setSelectedGroup(stickerGroup)
+        groupsAdapter.notifyDataSetChanged()
+
+        showStickersPanel()
         stickerAdapter.items.apply {
             clear()
             addAll(stickerGroup.items)
         }
         stickerAdapter.notifyDataSetChanged()
     }
+
+    private fun showStickersPanel() {
+        srickersRecyclerView.animation?.cancel()
+        srickersRecyclerView.animate().apply {
+            translationY (0f)
+            setDuration(200)
+            setInterpolator(AccelerateDecelerateInterpolator())
+        }.start()
+    }
+
+    private fun hideStikersPanel() {
+        srickersRecyclerView.animation?.cancel()
+        srickersRecyclerView.animate().apply {
+            translationY (srickersRecyclerView.height.toFloat())
+            setDuration(200)
+            setInterpolator(DecelerateInterpolator())
+        }.start()
+    }
+
     private fun onStickerClick(stickerItem: StickerItem?) {
         mainImageView.addControllerAsynch(stickerItem?.fullName,-1,null)
     }

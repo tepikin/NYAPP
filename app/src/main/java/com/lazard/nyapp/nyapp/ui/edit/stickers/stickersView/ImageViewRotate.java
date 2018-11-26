@@ -568,8 +568,9 @@ public class ImageViewRotate extends AppCompatImageView {
 
     }
 
-    public void onColorClick() {
+    public void onRemoveClick() {
         final Controller controller = getCurentController();
+        removeSelectedSvg();
     }
 
     @Override
