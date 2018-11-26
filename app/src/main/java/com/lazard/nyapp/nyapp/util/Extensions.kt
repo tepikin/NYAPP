@@ -45,8 +45,26 @@ object BitmapUtils {
             BitmapFactory.decodeFile(file.absolutePath, this)
         }
     }
+
+    fun decodeBigestBitmap(file: File): Bitmap? {
+        return BitmapFactory.Options().run {
+            for (scale in 0..10) {
+                try {
+                    inSampleSize = scale
+                    return BitmapFactory.decodeFile(file.absolutePath, this)
+                }catch (e:Throwable){
+                    e.printStackTrace()
+                }
+            }
+            null
+        }
+    }
 }
+
 
 val Context.displayMetrics get() = this.getResources().getDisplayMetrics()
 
-fun Bitmap?.recycleSafe() {if(this?.isRecycled == false)this.recycle()}
+fun Bitmap?.recycleSafe() {
+    if (this?.isRecycled == false) this.recycle()
+}
+
