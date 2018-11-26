@@ -28,7 +28,7 @@ public class SvgItem extends ControllerItem {
 
     private String name;
 
-    private Drawable drawableColor;
+    private Drawable drawableRemove;
 
     private Drawable drawableFlipVertical;
 
@@ -38,9 +38,8 @@ public class SvgItem extends ControllerItem {
         super(context, imageViewRotate);
         setSvg(name, context);
 
-        drawableColor = context.getResources().getDrawable(
-                R.drawable.edit_tool_masks_palet);
-
+        drawableRemove = context.getResources().getDrawable(
+                R.drawable.edit_tool_masks_remove);
         drawableFlipVertical = context.getResources().getDrawable(
                 R.drawable.edit_tool_masks_flip_vertical);
         drawableFlipHorizontal = context.getResources().getDrawable(
@@ -61,11 +60,8 @@ public class SvgItem extends ControllerItem {
 
     @Override
     protected void drawButtons(Canvas canvas, float[] points, int alpha) {
-        if (getColor() != -1) {
-            drawDrawable(drawableColor, points[0], points[1], alpha, canvas);
-        }
-        drawDrawable(drawableFlipHorizontal, points[6], points[7], alpha,
-                canvas);
+        drawDrawable(drawableRemove, points[2], points[3], alpha, canvas);
+        drawDrawable(drawableFlipHorizontal, points[6], points[7], alpha, canvas);
         drawDrawable(drawableFlipVertical, points[8], points[9], alpha, canvas);
     }
 
@@ -73,7 +69,7 @@ public class SvgItem extends ControllerItem {
     public List<Drawable> getAllDrawables() {
         List<Drawable> list = new ArrayList<Drawable>();
         list.add(getRotateDrawable());
-        list.add(drawableColor);
+        list.add(drawableRemove);
         list.add(drawableFlipHorizontal);
         list.add(drawableFlipVertical);
         return list;
@@ -95,11 +91,9 @@ public class SvgItem extends ControllerItem {
     @Override
     public boolean onSingleTapUp(PointF point) {
         float padding = Utils.INSTANCE.dpToPx(8, imageView.getContext());
-        if (getColor() != -1) {
-            if (inDrawable(drawableColor, point)) {
-                imageView.onColorClick();
-                return true;
-            }
+        if (inDrawable(drawableRemove, point)) {
+            imageView.onRemoveClick();
+            return true;
         }
 
         if (inDrawable(drawableFlipHorizontal, point)) {
