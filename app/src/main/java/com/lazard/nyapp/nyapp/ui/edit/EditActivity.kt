@@ -59,6 +59,10 @@ class EditActivity : BaseActivity() {
 
     private fun onGroupClick(stickerGroup: StickerGroup?) {
         stickerGroup?:return
+        groupsAdapter.items.forEach { it.isSelected=false }
+        stickerGroup.isSelected=true;
+        groupsAdapter.notifyDataSetChanged()
+
         stickerAdapter.items.apply {
             clear()
             addAll(stickerGroup.items)

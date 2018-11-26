@@ -5,11 +5,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion compileSdk_version.toInteger()
     defaultConfig {
         applicationId "com.lazard.nyapp.nyapp"
-        minSdkVersion 15
-        targetSdkVersion 28
+        minSdkVersion minSdk_version.toInteger()
+        targetSdkVersion targetSdk_version.toInteger()
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -62,9 +62,12 @@ dependencies {
     implementation 'android.arch.navigation:navigation-testing-ktx:1.0.0-alpha06'
     implementation 'android.arch.navigation:navigation-ui-ktx:1.0.0-alpha07'
     implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha11'
-    implementation 'com.google.android.material:material:1.0.0-alpha1'
+    implementation 'com.google.android.material:material:1.1.0-alpha01'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation project(':PictureTaker')
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation project(':androidSVG_12')
 }

@@ -1,5 +1,6 @@
 package com.lazard.nyapp.nyapp.ui.main
 
+import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
 import android.net.Uri
@@ -26,21 +27,20 @@ class MainActivity : BaseActivity() {
 
         cameraSmall?.doOnLayout {
             frontImage?.imageMatrix?.apply {
-                var galleryBigRect = Rect(512, 1065, 512 + 233, 1065 + 270).toRectF()
-                var gallerySmallRect = Rect(313, 722, 313 + 101, 722 + 96).toRectF()
-                var cameraBigRect = Rect(262, 840, 262 + 233, 840 + 242).toRectF()
-                var cameraSmallRect = Rect(171, 671, 171 + 108, 671 + 84).toRectF()
 
-                var galleryBigRectT = RectF()
-                mapRect(galleryBigRect)
-                mapRect(gallerySmallRect)
-                mapRect(cameraBigRect)
-                mapRect(cameraSmallRect)
+                fun mapView(size:Pair<Int,Int>,center:Point,rotate:Float,view:View){
+                    val (width,height) = size
+                    val rect = Rect(center.x-width/2, center.y-height/2, center.x-width/2+width, center.y-height/2+height).toRectF()
+                    mapRect(rect)
+                    view.setViewByRect(rect)
+                    view.rotation = rotate
+                }
 
-                galleryBig.setViewByRect(galleryBigRect)
-                gallerySmall.setViewByRect(gallerySmallRect)
-                cameraBig.setViewByRect(cameraBigRect)
-                cameraSmall.setViewByRect(cameraSmallRect)
+                mapView(234 to 234,Point(635,1187),26f,galleryBig)
+                mapView(85 to 85,Point(363,767),19.59f,gallerySmall)
+
+                mapView(173 to 173,Point(390,940),-18.04f,cameraBig)
+                mapView(65 to 65,Point(233,707),22.66f,cameraSmall)
 
             }
         }
