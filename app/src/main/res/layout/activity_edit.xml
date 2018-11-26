@@ -55,6 +55,7 @@
             android:background="#942196F3"
             android:id="@+id/srickersRecyclerView"
             android:layout_height="100dp"
+            android:translationY="100dp"
             app:layout_constraintBottom_toTopOf="@id/groupsRecyclerView"/>
 
     <androidx.recyclerview.widget.RecyclerView

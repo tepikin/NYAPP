@@ -6,15 +6,17 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
 import androidx.core.view.doOnLayout
-import androidx.core.view.drawToBitmap
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lazard.nyapp.nyapp.R
 import com.lazard.nyapp.nyapp.util.copyAndClose
 import com.lazard.nyapp.nyapp.model.StickerGroup
 import com.lazard.nyapp.nyapp.model.StickerItem
 import com.lazard.nyapp.nyapp.ui.BaseActivity
+import com.lazard.nyapp.nyapp.util.SimpleAnimatorListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.coroutines.async
@@ -62,9 +64,7 @@ class EditActivity : BaseActivity() {
     private fun onGroupClick(stickerGroup: StickerGroup?) {
         stickerGroup?:return
         if (groupsAdapter.getSelectedGroup()==stickerGroup){
-            if (srickersRecyclerView.visibility == View.VISIBLE){
-                hideStikersPanel()
-            }
+            hideStikersPanel()
             stickerGroup.isSelected = false
             groupsAdapter.notifyDataSetChanged()
             return
@@ -73,7 +73,7 @@ class EditActivity : BaseActivity() {
         groupsAdapter.setSelectedGroup(stickerGroup)
         groupsAdapter.notifyDataSetChanged()
 
-        showStikersPanel()
+        showStickersPanel()
         stickerAdapter.items.apply {
             clear()
             addAll(stickerGroup.items)
@@ -81,12 +81,22 @@ class EditActivity : BaseActivity() {
         stickerAdapter.notifyDataSetChanged()
     }
 
-    private fun showStikersPanel() {
-        srickersRecyclerView.visibility = View.VISIBLE
+    private fun showStickersPanel() {
+        srickersRecyclerView.animation?.cancel()
+        srickersRecyclerView.animate().apply {
+            translationY (0f)
+            setDuration(200)
+            setInterpolator(AccelerateDecelerateInterpolator())
+        }.start()
     }
 
     private fun hideStikersPanel() {
-        srickersRecyclerView.visibility = View.GONE
+        srickersRecyclerView.animation?.cancel()
+        srickersRecyclerView.animate().apply {
+            translationY (srickersRecyclerView.height.toFloat())
+            setDuration(200)
+            setInterpolator(DecelerateInterpolator())
+        }.start()
     }
 
     private fun onStickerClick(stickerItem: StickerItem?) {
