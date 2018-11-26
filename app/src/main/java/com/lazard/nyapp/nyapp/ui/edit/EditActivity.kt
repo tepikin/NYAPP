@@ -5,8 +5,10 @@ import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.core.view.doOnLayout
+import androidx.core.view.drawToBitmap
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lazard.nyapp.nyapp.R
 import com.lazard.nyapp.nyapp.util.copyAndClose
@@ -40,7 +42,7 @@ class EditActivity : BaseActivity() {
         mainImageView.doOnLayout {loadImage()}
         initRecyclers()
 
-        saveView.setOnClickListener {  }
+        saveView.setOnClickListener { mainImageView }
         shareView.setOnClickListener {  }
 
     }
@@ -59,16 +61,34 @@ class EditActivity : BaseActivity() {
 
     private fun onGroupClick(stickerGroup: StickerGroup?) {
         stickerGroup?:return
-        groupsAdapter.items.forEach { it.isSelected=false }
-        stickerGroup.isSelected=true;
+        if (groupsAdapter.getSelectedGroup()==stickerGroup){
+            if (srickersRecyclerView.visibility == View.VISIBLE){
+                hideStikersPanel()
+            }
+            stickerGroup.isSelected = false
+            groupsAdapter.notifyDataSetChanged()
+            return
+        }
+
+        groupsAdapter.setSelectedGroup(stickerGroup)
         groupsAdapter.notifyDataSetChanged()
 
+        showStikersPanel()
         stickerAdapter.items.apply {
             clear()
             addAll(stickerGroup.items)
         }
         stickerAdapter.notifyDataSetChanged()
     }
+
+    private fun showStikersPanel() {
+        srickersRecyclerView.visibility = View.VISIBLE
+    }
+
+    private fun hideStikersPanel() {
+        srickersRecyclerView.visibility = View.GONE
+    }
+
     private fun onStickerClick(stickerItem: StickerItem?) {
         mainImageView.addControllerAsynch(stickerItem?.fullName,-1,null)
     }
