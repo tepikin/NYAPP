@@ -20,6 +20,7 @@
 
     <ImageView
             android:id="@+id/saveView"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="@dimen/header_height"
             android:layout_height="@dimen/header_height"
             android:scaleType="centerInside"
@@ -30,6 +31,7 @@
 
     <ImageView
             android:id="@+id/shareView"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="@dimen/header_height"
             android:layout_height="@dimen/header_height"
             android:tint="@color/selector_tint_white_yellow_press"
@@ -52,7 +54,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:background="#942196F3"
+            android:background="#948BC8F9"
             android:id="@+id/srickersRecyclerView"
             android:layout_height="100dp"
             android:translationY="100dp"

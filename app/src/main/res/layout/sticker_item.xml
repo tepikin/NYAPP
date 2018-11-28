@@ -5,6 +5,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:padding="8dp"
+        android:background="?android:attr/selectableItemBackground"
         android:orientation="vertical"
         android:scaleType="centerInside"
         tools:context=".ui.edit.EditActivity"/>

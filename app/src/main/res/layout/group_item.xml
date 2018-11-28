@@ -5,7 +5,7 @@
         android:layout_width="@dimen/bottom_panel_height"
         android:layout_height="@dimen/bottom_panel_height"
         android:padding="8dp"
-        android:background="#1976D2"
+        android:background="?android:attr/selectableItemBackground"
         android:tint="@color/selector_tint_white_yellow_selected"
         android:orientation="vertical"
         android:scaleType="centerInside"
