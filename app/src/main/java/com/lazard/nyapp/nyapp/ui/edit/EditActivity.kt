@@ -58,6 +58,7 @@ class EditActivity : BaseActivity() {
         val intent = Intent()
         intent.action = Intent.ACTION_SEND
         intent.setDataAndType(uri, "image/*")
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         startActivity(intent)
     }
 
@@ -67,6 +68,7 @@ class EditActivity : BaseActivity() {
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
         intent.setDataAndType(uri, "image/*")
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         startActivity(intent)
     }
 

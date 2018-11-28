@@ -3,6 +3,9 @@ package com.lazard.nyapp.nyapp.util
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.media.ExifInterface
+import android.util.Log
 import java.io.File
 import java.io.InputStream
 import java.io.OutputStream
@@ -21,6 +24,46 @@ object BitmapUtils {
             inJustDecodeBounds = true
             BitmapFactory.decodeFile(file.absolutePath, this)
         }
+
+    private fun rotateBitmap(bitmap: Bitmap, degrees: Int, scaleX: Int, scaleY: Int): Bitmap {
+        val matrix = Matrix()
+        matrix.preScale(scaleX.toFloat(), scaleY.toFloat())
+        matrix.preRotate(degrees.toFloat())
+        if (bitmap.width <= 0 || bitmap.height < 0) {
+            Log.e("tag", "size is null")
+        }
+        val rotated = Bitmap.createBitmap(
+            bitmap, 0, 0, bitmap.width, bitmap.height, matrix,
+            false
+        )
+        if (bitmap != rotated) {
+            bitmap.recycle()
+        }
+        return rotated
+    }
+
+    private fun rotateByExif(path: String, bitmap: Bitmap): Bitmap {
+        var orientation = ExifInterface.ORIENTATION_NORMAL
+        try {
+            val exif = ExifInterface(path)
+            orientation = exif.getAttributeInt(
+                ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_NORMAL
+            )
+        } catch (e: Throwable) {
+            return bitmap
+        }
+
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
+            return rotateBitmap(bitmap, 90, 1, 1)
+        }
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
+            return rotateBitmap(bitmap, 180, 1, 1)
+        }
+        return if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
+            rotateBitmap(bitmap, 270, -1, 1)
+        } else bitmap
+    }
 
     private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
         val (height: Int, width: Int) = options.run { outHeight to outWidth }
@@ -51,9 +94,11 @@ object BitmapUtils {
             for (scale in 0..10) {
                 try {
                     inSampleSize = scale
-                    return BitmapFactory.decodeFile(file.absolutePath, this)
+                    val bitmap = BitmapFactory.decodeFile(file.absolutePath, this)
+                    return rotateByExif(file.absolutePath,bitmap)
                 }catch (e:Throwable){
                     e.printStackTrace()
+                    System.gc()
                 }
             }
             null

@@ -5,23 +5,24 @@ import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import com.lazard.nyapp.nyapp.ui.edit.stickers.stickersView.*
 import com.lazard.nyapp.nyapp.util.BitmapUtils
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_edit.*
+import com.lazard.nyapp.nyapp.util.recycleSafe
 import java.io.File
-import java.util.ArrayList
+import java.util.*
 
-class ApplyStickers{
-     fun saveBitmap(mainImageView:ImageViewRotate,origFile:File,targetFile:File) {
+class ApplyStickers {
+    fun saveBitmap(mainImageView: ImageViewRotate, origFile: File, targetFile: File) {
         val stickersAction = createStickersAction(mainImageView)
 
         val decodedBigestBitmap = BitmapUtils.decodeBigestBitmap(origFile)
         val result = stickersAction.apply(decodedBigestBitmap)
-         targetFile.parentFile.apply { mkdir();mkdirs() }
-         targetFile.createNewFile()
-        result?.compress(Bitmap.CompressFormat.JPEG,80,targetFile.outputStream())
+        decodedBigestBitmap?.recycleSafe()
+        targetFile.parentFile.apply { mkdir();mkdirs() }
+        targetFile.createNewFile()
+        result?.compress(Bitmap.CompressFormat.JPEG, 80, targetFile.outputStream())
+        result?.recycleSafe()
     }
 
-    private fun createStickersAction(mainImageView: ImageViewRotate):StickersAction {
+    private fun createStickersAction(mainImageView: ImageViewRotate): StickersAction {
         val context = mainImageView.context
         val bitmap = (mainImageView.drawable as BitmapDrawable).bitmap
         val canvas = Canvas(bitmap)
