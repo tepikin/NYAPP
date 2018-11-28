@@ -38,7 +38,7 @@ class EditActivity : BaseActivity() {
     }
 
     val tempImageFile by lazy { File(getFilesDir().absolutePath + "/tempImage") }
-    val bitmap get() = (mainImageView.drawable as BitmapDrawable).bitmap
+    val bitmap get() = mainImageView.bitmap
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

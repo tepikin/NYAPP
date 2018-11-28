@@ -14,7 +14,6 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.widget.Toast;
-import androidx.appcompat.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -27,6 +26,8 @@ import com.google.gson.Gson;
 import com.lazard.nyapp.nyapp.ui.edit.EditActivity;
 import com.lazard.nyapp.nyapp.ui.edit.stickers.stickersView.text.TextModel;
 import com.lazard.nyapp.nyapp.util.Utils;
+import com.lazard.nyapp.nyapp.util.views.imagezoom.ImageViewTouchScaled;
+import com.lazard.nyapp.nyapp.util.views.imagezoom.graphics.FastBitmapDrawable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,13 @@ import java.util.List;
  * 
  * @author Egor
  */
-public class ImageViewRotate extends AppCompatImageView {
+public class ImageViewRotate extends ImageViewTouchScaled {
+
+    public Bitmap getBitmap(){
+        if (getDrawable() instanceof BitmapDrawable)return ((BitmapDrawable) getDrawable()).getBitmap();
+        if (getDrawable() instanceof FastBitmapDrawable)return ((FastBitmapDrawable) getDrawable()).getBitmap();
+        return null;
+    }
 
     private static final int BORDER_DELAY = 2000;
 
@@ -242,17 +249,17 @@ public class ImageViewRotate extends AppCompatImageView {
 
     public ImageViewRotate(Context context) {
         super(context);
-        init();
+        init_();
     }
 
     public ImageViewRotate(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init_();
     }
 
     public ImageViewRotate(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init();
+        init_();
     }
 
     public void addController(Controller controller) {
@@ -498,12 +505,12 @@ public class ImageViewRotate extends AppCompatImageView {
         rect.bottom += padding;
     }
 
-    private void init() {
+    private void init_() {
         gestureDetector.setIsLongpressEnabled(false);
 
         handler = new Handler();
         try {
-            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            setLayerType(View.LAYER_TYPE_HARDWARE, null);
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -537,11 +544,11 @@ public class ImageViewRotate extends AppCompatImageView {
             matrixInvert.mapPoints(center);
             item.translate(center[0] - centerView.x, center[1] - centerView.y);
 
-            if (getDrawable() instanceof BitmapDrawable) {
+            if (getBitmap()!=null) {
 
                 RectF rect = new RectF(item.getImageRect());
 
-                Bitmap bitmap = ((BitmapDrawable) getDrawable()).getBitmap();
+                Bitmap bitmap = getBitmap();
                 float scaleX = bitmap.getWidth() / 2 / rect.width();
                 float scaleY = bitmap.getHeight() / 2 / rect.height();
                 float scale = Math.min(scaleX, scaleY);
@@ -670,14 +677,11 @@ if (getDrawable()==null)return;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // if (System.currentTimeMillis() - lastTouch > BORDER_DELAY
-        // + ANIMATION_DELAY) {
-        // RotateSvgController controller = getContollerByPoint(new PointF(
-        // event.getX(), event.getY()));
-        // setControllerCurrent(controller);
-        // }
 
-        // lastTouchUpdate();
+//        setDoubleTapEnabled(false);
+//        setScrollEnabled(false);
+//        setScaleEnabled(false);
+//        super.onTouchEvent(event);
 
         gestureDetector.onTouchEvent(event);
         if (isRotateScroll) {

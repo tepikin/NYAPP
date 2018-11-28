@@ -24,7 +24,7 @@ class ApplyStickers {
 
     private fun createStickersAction(mainImageView: ImageViewRotate): StickersAction {
         val context = mainImageView.context
-        val bitmap = (mainImageView.drawable as BitmapDrawable).bitmap
+        val bitmap = mainImageView.bitmap
         val canvas = Canvas(bitmap)
 
         val stickerItems = ArrayList<StickersAction.StickerItem>()
