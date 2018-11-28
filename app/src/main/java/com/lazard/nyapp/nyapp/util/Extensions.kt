@@ -78,6 +78,16 @@ object BitmapUtils {
         return inSampleSize
     }
 
+    fun decodeSampledBitmap(inputStream: InputStream, reqWidth: Int, reqHeight: Int): Bitmap {
+        return BitmapFactory.Options().run {
+            inJustDecodeBounds = true
+            BitmapFactory.decodeStream(inputStream,null, this)
+            inputStream.reset()
+            inSampleSize = calculateInSampleSize(this, reqWidth, reqHeight)
+            inJustDecodeBounds = false
+            BitmapFactory.decodeStream(inputStream,null, this)
+        }
+    }
 
     fun decodeSampledBitmap(file: File, reqWidth: Int, reqHeight: Int): Bitmap {
         return BitmapFactory.Options().run {
