@@ -2,39 +2,29 @@ package com.lazard.nyapp.nyapp.ui.edit
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
-import androidx.core.content.FileProvider
-import androidx.core.os.EnvironmentCompat
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lazard.nyapp.nyapp.R
-import com.lazard.nyapp.nyapp.util.copyAndClose
 import com.lazard.nyapp.nyapp.model.StickerGroup
 import com.lazard.nyapp.nyapp.model.StickerItem
 import com.lazard.nyapp.nyapp.ui.BaseActivity
 import com.lazard.nyapp.nyapp.ui.edit.stickers.ApplyStickers
-import com.lazard.nyapp.nyapp.ui.edit.stickers.stickersView.PngItem
-import com.lazard.nyapp.nyapp.ui.edit.stickers.stickersView.StickersAction
-import com.lazard.nyapp.nyapp.ui.edit.stickers.stickersView.SvgItem
-import com.lazard.nyapp.nyapp.ui.edit.stickers.stickersView.TextControllerItem
-import com.lazard.nyapp.nyapp.util.SimpleAnimatorListener
+import com.lazard.nyapp.nyapp.util.copyAndClose
 import com.lazard.nyapp.picturetaker.getFileProviderUri
+import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import org.jetbrains.anko.toast
 import java.io.File
-import java.util.ArrayList
 
 
 class EditActivity : BaseActivity() {
@@ -47,14 +37,14 @@ class EditActivity : BaseActivity() {
         }
     }
 
-    val tempImageFile by lazy {  File(getFilesDir().absolutePath+"/tempImage")}
-    val bitmap get()= (mainImageView.drawable as BitmapDrawable).bitmap
+    val tempImageFile by lazy { File(getFilesDir().absolutePath + "/tempImage") }
+    val bitmap get() = (mainImageView.drawable as BitmapDrawable).bitmap
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit)
-        mainImageView.doOnLayout {loadImage()}
+        mainImageView.doOnLayout { loadImage() }
         initRecyclers()
 
         saveView.setOnClickListener { saveBitmap() }
@@ -89,21 +79,27 @@ class EditActivity : BaseActivity() {
         return uri
     }
 
-    val groupsAdapter  by lazy {  GroupsAdapter(this, ::onGroupClick)}
-    val stickerAdapter by lazy {  StickerAdapter(this, ::onStickerClick).apply { groupsAdapter.items.firstOrNull()?.items?.apply{items.addAll(this) }}}
+    val groupsAdapter by lazy { GroupsAdapter(this, ::onGroupClick) }
+    val stickerAdapter by lazy {
+        StickerAdapter(this, ::onStickerClick).apply {
+            groupsAdapter.items.firstOrNull()?.items?.apply { items.addAll(this) }
+        }
+    }
 
     private fun initRecyclers() {
-        groupsRecyclerView.layoutManager = LinearLayoutManager(this).apply { orientation = LinearLayoutManager.HORIZONTAL }
+        groupsRecyclerView.layoutManager =
+                LinearLayoutManager(this).apply { orientation = LinearLayoutManager.HORIZONTAL }
         groupsRecyclerView.adapter = groupsAdapter
         groupsRecyclerView.setHasFixedSize(true)
-        srickersRecyclerView.layoutManager = LinearLayoutManager(this).apply { orientation = LinearLayoutManager.HORIZONTAL }
+        srickersRecyclerView.layoutManager =
+                LinearLayoutManager(this).apply { orientation = LinearLayoutManager.HORIZONTAL }
         srickersRecyclerView.adapter = stickerAdapter
         srickersRecyclerView.setHasFixedSize(true)
     }
 
     private fun onGroupClick(stickerGroup: StickerGroup?) {
-        stickerGroup?:return
-        if (groupsAdapter.getSelectedGroup()==stickerGroup){
+        stickerGroup ?: return
+        if (groupsAdapter.getSelectedGroup() == stickerGroup) {
             hideStikersPanel()
             stickerGroup.isSelected = false
             groupsAdapter.notifyDataSetChanged()
@@ -124,7 +120,7 @@ class EditActivity : BaseActivity() {
     private fun showStickersPanel() {
         srickersRecyclerView.animation?.cancel()
         srickersRecyclerView.animate().apply {
-            translationY (0f)
+            translationY(0f)
             setDuration(200)
             setInterpolator(AccelerateDecelerateInterpolator())
         }.start()
@@ -133,24 +129,29 @@ class EditActivity : BaseActivity() {
     private fun hideStikersPanel() {
         srickersRecyclerView.animation?.cancel()
         srickersRecyclerView.animate().apply {
-            translationY (srickersRecyclerView.height.toFloat())
+            translationY(srickersRecyclerView.height.toFloat())
             setDuration(200)
             setInterpolator(DecelerateInterpolator())
         }.start()
     }
 
     private fun onStickerClick(stickerItem: StickerItem?) {
-        mainImageView.addControllerAsynch(stickerItem?.fullName,-1,null)
+        mainImageView.addControllerAsynch(stickerItem?.fullName, -1, null)
     }
 
     private fun loadImage() {
         try {
             uiScope.launch {
-                intent?.data?.let {bgScope.async { contentResolver.openInputStream(it)?.copyAndClose(tempImageFile) }.await()}
+                intent?.data?.let {
+                    bgScope.async {contentResolver.openInputStream(it)?.copyAndClose(tempImageFile)
+                    }.await()
+                }
+
 
                 Picasso.get()
                     .load(tempImageFile)
-                    .resize(mainImageView.width,mainImageView.height)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .resize(mainImageView.width, mainImageView.height)
                     .centerInside()
                     .into(mainImageView)
             }
