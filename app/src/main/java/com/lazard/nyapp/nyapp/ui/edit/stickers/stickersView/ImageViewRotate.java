@@ -38,7 +38,7 @@ import java.util.List;
  * @author Egor
  */
 public class ImageViewRotate extends ImageViewTouchScaled {
-
+    private boolean isStickersSelectOnlyByTransparent = true;
     public Bitmap getBitmap(){
         if (getDrawable() instanceof BitmapDrawable)return ((BitmapDrawable) getDrawable()).getBitmap();
         if (getDrawable() instanceof FastBitmapDrawable)return ((FastBitmapDrawable) getDrawable()).getBitmap();
@@ -424,7 +424,7 @@ public class ImageViewRotate extends ImageViewTouchScaled {
         for (int i = controllers.size() - 1; i >= 0; i--) {
             Controller rotateSvgController = controllers.get(i);
             if (rotateSvgController.getItem().isPointIn(point,
-                    currentItem != i || lastTouch <= 0)) {
+                    currentItem != i || lastTouch <= 0 || isStickersSelectOnlyByTransparent)) {
                 return rotateSvgController;
             }
         }
@@ -445,7 +445,7 @@ public class ImageViewRotate extends ImageViewTouchScaled {
         for (int i = controllers.size() - 1; i >= 0; i--) {
             Controller rotateSvgController = controllers.get(i);
             if (rotateSvgController.getItem().isPointIn(point,
-                    currentItem != i || lastTouch <= 0)) {
+                    currentItem != i || lastTouch <= 0 || isStickersSelectOnlyByTransparent)) {
                 return rotateSvgController;
             }
 
@@ -674,26 +674,37 @@ if (getDrawable()==null)return;
         }
 
     }
-
+    private boolean isScaleBaseBitmap = false;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
 //        setDoubleTapEnabled(false);
 //        setScrollEnabled(false);
 //        setScaleEnabled(false);
-//        super.onTouchEvent(event);
-
-        gestureDetector.onTouchEvent(event);
-        if (isRotateScroll) {
-            return true;
+        if (event.getAction()==MotionEvent.ACTION_DOWN&&event.getPointerCount()==1){
+            Controller contollerByPointAndDots = getContollerByPointAndDots(new PointF(event.getX(), event.getY()));
+            if (contollerByPointAndDots!=null){
+                isScaleBaseBitmap=false;
+            }else{
+                isScaleBaseBitmap=true;
+            }
         }
+        if (isScaleBaseBitmap) {
+            super.onTouchEvent(event);
+        }else {
 
-        Controller controller = getCurentController();
-        if (controller != null) {
-            if (lastTouch <= 0) {
+            gestureDetector.onTouchEvent(event);
+            if (isRotateScroll) {
                 return true;
             }
-            controller.onTouchEvent(event);
+
+            Controller controller = getCurentController();
+            if (controller != null) {
+                if (lastTouch <= 0) {
+                    return true;
+                }
+                controller.onTouchEvent(event);
+            }
         }
         return true;
     }
