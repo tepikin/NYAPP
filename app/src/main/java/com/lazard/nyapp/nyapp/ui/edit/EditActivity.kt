@@ -117,6 +117,7 @@ class EditActivity : BaseActivity() {
             addAll(stickerGroup.items)
         }
         stickerAdapter.notifyDataSetChanged()
+        srickersRecyclerView.scrollToPosition(0)
     }
 
     private fun showStickersPanel() {
