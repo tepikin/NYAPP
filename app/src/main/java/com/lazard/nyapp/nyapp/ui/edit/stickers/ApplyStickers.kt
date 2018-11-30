@@ -16,7 +16,7 @@ class ApplyStickers {
         val decodedBigestBitmap = BitmapUtils.decodeBigestBitmap(origFile)
         val result = stickersAction.apply(decodedBigestBitmap)
         if (decodedBigestBitmap!=result)decodedBigestBitmap?.recycleSafe()
-        targetFile.parentFile.apply { mkdir();mkdirs() }
+        targetFile.parentFile.apply { mkdirs();mkdir(); }
         targetFile.createNewFile()
         result?.compress(Bitmap.CompressFormat.JPEG, 80, targetFile.outputStream())
         result?.recycleSafe()

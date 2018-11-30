@@ -1,5 +1,6 @@
 package com.lazard.nyapp.nyapp.ui.edit
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
@@ -7,6 +8,7 @@ import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
@@ -17,6 +19,7 @@ import com.lazard.nyapp.nyapp.model.StickerGroup
 import com.lazard.nyapp.nyapp.model.StickerItem
 import com.lazard.nyapp.nyapp.ui.BaseActivity
 import com.lazard.nyapp.nyapp.ui.edit.stickers.ApplyStickers
+import com.lazard.nyapp.nyapp.util.applicationName
 import com.lazard.nyapp.nyapp.util.copyAndClose
 import com.lazard.nyapp.picturetaker.getFileProviderUri
 import com.squareup.picasso.MemoryPolicy
@@ -24,6 +27,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import org.jetbrains.anko.toast
 import java.io.File
 
 
@@ -52,29 +56,39 @@ class EditActivity : BaseActivity() {
 
     }
 
-    private fun shareBitmap() {
-        val uri = saveBitmapLocal()
+    private fun createShareIntent(action:String) {
+        CheckPermissions(this).checkPermissions {
+            uiScope.launch {
+                val progressDialog = ProgressDialog.show(this@EditActivity,"title","message",true,false)
+                progressDialog.show()
+                try {
+                    val uri = bgScope.async { saveBitmapLocal() }.await()
+                    val intent = Intent()
+                    intent.action = action
+                    intent.setDataAndType(uri, "image/jpg")
+                    intent.putExtra(Intent.EXTRA_STREAM, uri)
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    startActivity(intent)
+                }catch (e:Throwable){
+                    e.printStackTrace()
+                    toast("Can't save file")
+                }
+                progressDialog.hide()
+            }
+        }
+    }
 
-        val intent = Intent()
-        intent.action = Intent.ACTION_SEND
-        intent.setDataAndType(uri, "image/*")
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        startActivity(intent)
+    private fun shareBitmap() {
+        createShareIntent(Intent.ACTION_SEND)
     }
 
 
     private fun saveBitmap() {
-        val uri = saveBitmapLocal()
-        val intent = Intent()
-        intent.action = Intent.ACTION_VIEW
-        intent.setDataAndType(uri, "image/*")
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        startActivity(intent)
+        createShareIntent(Intent.ACTION_VIEW)
     }
 
     private fun saveBitmapLocal(): Uri? {
-        val externalFile =
-            File("${getExternalFilesDir(Environment.DIRECTORY_PICTURES)}/IMG_${System.currentTimeMillis()}.jpg")
+        val externalFile =File("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)}/${this.applicationName}/IMG_${System.currentTimeMillis()}.jpg")
         ApplyStickers().saveBitmap(mainImageView, tempImageFile, externalFile)
         MediaScannerConnection.scanFile(this, arrayOf(externalFile.absolutePath), null, null)
         val uri = externalFile.getFileProviderUri(this)

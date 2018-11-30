@@ -83,4 +83,5 @@ dependencies {
     implementation "org.jetbrains.anko:anko-support-v4-commons:$anko_version"
     implementation "org.jetbrains.anko:anko-support-v4:$anko_version"
     implementation "org.jetbrains.anko:anko-constraint-layout:$anko_version"
+    implementation 'com.karumi:dexter:5.0.0'
 }

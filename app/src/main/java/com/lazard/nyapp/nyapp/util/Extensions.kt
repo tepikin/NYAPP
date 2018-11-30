@@ -9,6 +9,9 @@ import android.util.Log
 import java.io.File
 import java.io.InputStream
 import java.io.OutputStream
+import android.content.pm.ApplicationInfo
+
+
 
 
 fun InputStream.copyAndClose(outputStream: OutputStream) =
@@ -123,3 +126,8 @@ fun Bitmap?.recycleSafe() {
     if (this?.isRecycled == false) this.recycle()
 }
 
+val  Context.applicationName:String  get(){
+    val applicationInfo = this.applicationInfo
+    val stringId = applicationInfo.labelRes
+    return if (stringId == 0) applicationInfo.nonLocalizedLabel.toString() else getString(stringId)
+}
