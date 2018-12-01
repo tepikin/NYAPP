@@ -8,6 +8,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.single.BasePermissionListener
 import com.karumi.dexter.listener.single.CompositePermissionListener
 import com.karumi.dexter.listener.single.SnackbarOnDeniedPermissionListener
+import com.lazard.nyapp.nyapp.R
 import org.jetbrains.anko.contentView
 
 
@@ -16,8 +17,8 @@ class CheckPermissions(val activity: Activity) {
 
         val viewForSnackBar: View? = activity.contentView
         val snackbarPermissionListener = SnackbarOnDeniedPermissionListener.Builder
-            .with(viewForSnackBar, "Write permissions need")
-            .withOpenSettingsButton("Settings")
+            .with(viewForSnackBar, R.string.permissions_request_message)
+            .withOpenSettingsButton(R.string.permissions_request_button)
             .build()
 
         val basePermissionListener = object : BasePermissionListener() {

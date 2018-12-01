@@ -71,7 +71,7 @@ class EditActivity : BaseActivity() {
                     startActivity(intent)
                 }catch (e:Throwable){
                     e.printStackTrace()
-                    toast("Can't save file")
+                    toast(R.string.save_file_failed)
                 }
                 progressDialog.hide()
             }
@@ -179,7 +179,7 @@ class EditActivity : BaseActivity() {
 
 
     private fun cantLoadImage() {
-        Toast.makeText(this, "Can't Load Image", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, R.string.load_file_failed, Toast.LENGTH_SHORT).show()
         finish()
     }
 
