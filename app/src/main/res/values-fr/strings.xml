@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="permissions_request_message">"Besoin d'accès à la memoire"</string>
+</resources>

@@ -4,7 +4,7 @@
     <string name="save_file_failed">Can\'t save file</string>
     <string name="load_file_failed">Can\'t load image</string>
     <string name="load_file_prompt">Select picture</string>
-    <string name="permissions_request_message">Write permissions need</string>
+    <string name="permissions_request_message">Need storage access</string>
     <string name="permissions_request_button">Settings</string>
 
 </resources>
