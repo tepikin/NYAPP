@@ -14,6 +14,7 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.crash.FirebaseCrash
 import com.lazard.nyapp.nyapp.R
 import com.lazard.nyapp.nyapp.model.StickerGroup
 import com.lazard.nyapp.nyapp.model.StickerItem
@@ -47,6 +48,7 @@ class EditActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        logAnalytics("start","edit","edit")
         setContentView(R.layout.activity_edit)
         mainImageView.doOnLayout { loadImage() }
         initRecyclers()
@@ -72,6 +74,7 @@ class EditActivity : BaseActivity() {
                 }catch (e:Throwable){
                     e.printStackTrace()
                     toast(R.string.save_file_failed)
+                    FirebaseCrash.log("Save file failed")
                 }
                 progressDialog.hide()
             }
@@ -79,11 +82,13 @@ class EditActivity : BaseActivity() {
     }
 
     private fun shareBitmap() {
+        logAnalytics("share","save","edit")
         createShareIntent(Intent.ACTION_SEND)
     }
 
 
     private fun saveBitmap() {
+        logAnalytics("gallery","save","edit")
         createShareIntent(Intent.ACTION_VIEW)
     }
 
@@ -114,6 +119,7 @@ class EditActivity : BaseActivity() {
     }
 
     private fun onGroupClick(stickerGroup: StickerGroup?) {
+        logAnalytics("select","group","edit")
         stickerGroup ?: return
         if (groupsAdapter.getSelectedGroup() == stickerGroup) {
             hideStikersPanel()
@@ -153,6 +159,7 @@ class EditActivity : BaseActivity() {
     }
 
     private fun onStickerClick(stickerItem: StickerItem?) {
+        logAnalytics("select","sticker","edit")
         mainImageView.addControllerAsynch(stickerItem?.fullName, -1, null)
     }
 
@@ -163,7 +170,7 @@ class EditActivity : BaseActivity() {
                     bgScope.async {contentResolver.openInputStream(it)?.copyAndClose(tempImageFile)
                     }.await()
                 }
-
+                logAnalytics("copy","load","edit")
 
                 Picasso.get()
                     .load(tempImageFile)
@@ -171,9 +178,12 @@ class EditActivity : BaseActivity() {
                     .resize(mainImageView.width, mainImageView.height)
                     .centerInside()
                     .into(mainImageView)
+                logAnalytics("loaded","load","edit")
             }
         } catch (e: Throwable) {
             cantLoadImage()
+            FirebaseCrash.log("Load file failed")
+            logAnalytics("error","load","edit")
         }
     }
 

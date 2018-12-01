@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "653778938847",
+    "firebase_url": "https://nyapp-62215.firebaseio.com",
+    "project_id": "nyapp-62215",
+    "storage_bucket": "nyapp-62215.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653778938847:android:21c71c6bf9805049",
+        "android_client_info": {
+          "package_name": "com.lazard.nyapp.nyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653778938847-l023d834oorbt68crrqce9s44l8mpc5c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lazard.nyapp.nyapp",
+            "certificate_hash": "536154ec628855ade6cad55a0155c2a79d2deb53"
+          }
+        },
+        {
+          "client_id": "653778938847-oupl8mncpvpikehpsb7geb41vibddnhg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5QjJFRimtHEhuQ4UJWiGrr_cBLn1AKqE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653778938847-oupl8mncpvpikehpsb7geb41vibddnhg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

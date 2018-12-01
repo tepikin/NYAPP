@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.core.graphics.toRectF
 import androidx.core.view.doOnLayout
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.lazard.nyapp.nyapp.R
 import com.lazard.nyapp.nyapp.ui.BaseActivity
 import com.lazard.nyapp.nyapp.ui.edit.EditActivity
@@ -22,8 +23,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
+        logAnalytics("start","main","main")
 
         cameraSmall?.doOnLayout {
             frontImage?.imageMatrix?.apply {
@@ -53,6 +53,7 @@ class MainActivity : BaseActivity() {
     }
 
     fun onUriSelected(uri:Uri?){
+        logAnalytics("open","image","main")
         uri?:return
         EditActivity.show(uri,this)
     }

@@ -43,7 +43,7 @@ class GroupsAdapter(context:Context,val listener:(StickerGroup?)->Unit) : Recycl
             itemView.isSelected=stickerGroup.isSelected
             val size = Utils.dpToPx(48f,itemView.context).toInt()
             Picasso.get()
-                .load("file:///android_asset/groups/${stickerGroup.name}")
+                .load("file:///android_asset/${stickerGroup.fullName}")
                 .resize(size,size)
                 .centerInside()
                 .into(itemView as ImageView)
