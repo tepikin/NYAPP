@@ -27,7 +27,7 @@ android {
             keyAlias 'NYAPP'
             keyPassword 'kmdf9834fg0gbv'
             storeFile file('../keystore')
-            storePassword 'kmdf9834fg0gbv)'
+            storePassword 'kmdf9834fg0gbv'
             v1SigningEnabled true
             v2SigningEnabled true
         }

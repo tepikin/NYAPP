@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name" translatable="false">NYAPP</string>
-    <string name="title_activity_edit" translatable="false">NYAPP</string>
+    <string name="app_name" translatable="false">StickersNY</string>
+    <string name="title_activity_edit" translatable="false">StickersNY</string>
     <string name="save_file_failed">Can\'t save image</string>
     <string name="load_file_failed">Can\'t load image</string>
     <string name="load_file_prompt">Select image</string>
