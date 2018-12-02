@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="permissions_request_message">需要访问存储权限</string>
+    <string name="permissions_request_button">設置</string>
+    <string name="load_file_failed">無法加載圖片</string>
+    <string name="save_file_failed">無法保存圖片</string>
+    <string name="load_file_prompt">選擇圖像</string>
 </resources>

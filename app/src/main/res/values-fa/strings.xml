@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="permissions_request_message">نیاز به دسترسی برای ذخیره سازی</string>
+    <string name="save_file_failed">نمیتوان تصویر را ذخیره کرد</string>
+    <string name="load_file_failed">بارگیری تصویر امکان پذیر نیست</string>
+    <string name="permissions_request_button">تنظیمات</string>
+    <string name="load_file_prompt">تصویر را انتخاب کنید</string>
 </resources>

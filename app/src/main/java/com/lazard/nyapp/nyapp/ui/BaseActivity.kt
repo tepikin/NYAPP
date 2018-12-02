@@ -9,15 +9,23 @@ import kotlinx.coroutines.launch
 import android.util.StatsLog.logEvent
 import android.R.attr.name
 import android.os.Bundle
+import android.os.PersistableBundle
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 
 
 open class BaseActivity : AppCompatActivity() {
-    val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+    val mFirebaseAnalytics by lazy { FirebaseAnalytics.getInstance(this)}
     val baseJob = Job()
     val uiScope = CoroutineScope(Dispatchers.Main + baseJob)
     val bgScope = CoroutineScope(Dispatchers.IO + baseJob)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Fabric.with(this, Crashlytics())
+        mFirebaseAnalytics.setUserProperty("init", "init")
+    }
 
     override fun onDestroy() {
         baseJob.cancel()
@@ -31,6 +39,6 @@ open class BaseActivity : AppCompatActivity() {
         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name)
         bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, category)
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, category)
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle)
     }
 }
