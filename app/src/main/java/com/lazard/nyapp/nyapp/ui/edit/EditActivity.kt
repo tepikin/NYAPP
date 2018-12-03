@@ -30,6 +30,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.jetbrains.anko.toast
 import java.io.File
+import java.io.IOException
 
 
 class EditActivity : BaseActivity() {
@@ -61,6 +62,7 @@ class EditActivity : BaseActivity() {
     private fun createShareIntent(action:String) {
         CheckPermissions(this).checkPermissions {
             uiScope.launch {
+
                 val progressDialog = ProgressDialog.show(this@EditActivity,"title","message",true,false)
                 progressDialog.show()
                 try {
@@ -73,7 +75,11 @@ class EditActivity : BaseActivity() {
                     startActivity(intent)
                 }catch (e:Throwable){
                     e.printStackTrace()
-                    toast(R.string.save_file_failed)
+                    if (e.toString().contains("No space left on device")){
+                        toast(R.string.save_file_failed_no_space)
+                    }else {
+                        toast(R.string.save_file_failed)
+                    }
                     FirebaseCrash.log("Save file failed")
                 }
                 progressDialog.hide()
