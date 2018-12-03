@@ -5,4 +5,5 @@
     <string name="load_file_failed">بارگیری تصویر امکان پذیر نیست</string>
     <string name="permissions_request_button">تنظیمات</string>
     <string name="load_file_prompt">تصویر را انتخاب کنید</string>
+    <string name="save_file_failed_no_space">فضای دستگاه برطرف نشده است</string>
 </resources>

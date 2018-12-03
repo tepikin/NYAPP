@@ -5,4 +5,5 @@
     <string name="load_file_failed">無法加載圖片</string>
     <string name="save_file_failed">無法保存圖片</string>
     <string name="load_file_prompt">選擇圖像</string>
+    <string name="save_file_failed_no_space">設備上沒有剩餘空間</string>
 </resources>

@@ -2,11 +2,13 @@
     <string name="app_name" translatable="false">StickersNY</string>
     <string name="title_activity_edit" translatable="false">StickersNY</string>
     <string name="privacy_policy_link" translatable="false">https://raw.githubusercontent.com/tepikin/NYAPP/master/Privacy%20policy.html</string>
+    <string name="save_file_progress_dialog_title">Title</string>
+    <string name="save_file_progress_dialog_message">Message</string>
     <string name="save_file_failed">Can\'t save image</string>
     <string name="save_file_failed_no_space">No space left on device</string>
     <string name="load_file_failed">Can\'t load image</string>
     <string name="load_file_prompt">Select image</string>
     <string name="permissions_request_message">Need storage access</string>
     <string name="permissions_request_button">Settings</string>
-    <string name="privacy_policy_title"><b><u>Privacy Policy</u></b></string>
+    <string name="privacy_policy_title" translatable="false"><b><u>Privacy Policy</u></b></string>
 </resources>

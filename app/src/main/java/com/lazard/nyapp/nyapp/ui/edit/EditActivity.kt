@@ -63,7 +63,7 @@ class EditActivity : BaseActivity() {
         CheckPermissions(this).checkPermissions {
             uiScope.launch {
 
-                val progressDialog = ProgressDialog.show(this@EditActivity,"title","message",true,false)
+                val progressDialog = ProgressDialog.show(this@EditActivity,getString(R.string.save_file_progress_dialog_title),getString(R.string.save_file_progress_dialog_message),true,false)
                 progressDialog.show()
                 try {
                     val uri = bgScope.async { saveBitmapLocal() }.await()

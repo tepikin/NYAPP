@@ -281,6 +281,9 @@ public class ImageViewRotate extends ImageViewTouchScaled {
                 if (svgName.endsWith("png")) {
                     controller.setItem(new PngItem(svgName, getContext(),
                             ImageViewRotate.this));
+                }else if (svgName.endsWith("webp")) {
+                    controller.setItem(new PngItem(svgName, getContext(),
+                            ImageViewRotate.this));
                 } else {
                     controller.setItem(new SvgItem(svgName, getContext(),
                             ImageViewRotate.this));

@@ -5,4 +5,5 @@
     <string name="save_file_failed">" Não é possível salvar a imagem"</string>
     <string name="permissions_request_button">Definições</string>
     <string name="load_file_prompt">Selecione a imagem</string>
+    <string name="save_file_failed_no_space">Nenhum espaço deixado no dispositivo</string>
 </resources>

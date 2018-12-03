@@ -5,4 +5,5 @@
     <string name="save_file_failed">Не удается сохранить изображение</string>
     <string name="load_file_failed">Не удается загрузить изображение</string>
     <string name="load_file_prompt">Выберите изображение</string>
+    <string name="save_file_failed_no_space">Не осталось свободного места на устройстве</string>
 </resources>

@@ -5,4 +5,5 @@
     <string name="permissions_request_button">Réglages</string>
     <string name="load_file_failed">Impossible de charger l\'image</string>
     <string name="save_file_failed">Impossible d\'enregistrer l\'image</string>
+    <string name="save_file_failed_no_space">Pas d\'espace disponible sur le périphérique</string>
 </resources>
