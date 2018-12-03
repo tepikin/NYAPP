@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="permissions_request_message">"Besoin d'accès à la memoire"</string>
+    <string name="load_file_prompt">Sélectionnez une image</string>
+    <string name="permissions_request_button">Réglages</string>
+    <string name="load_file_failed">Impossible de charger l\'image</string>
+    <string name="save_file_failed">Impossible d\'enregistrer l\'image</string>
+</resources>

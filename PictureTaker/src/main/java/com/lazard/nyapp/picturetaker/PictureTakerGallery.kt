@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.transaction
 import android.os.Build
+import com.lazard.picturetaker.R
 
 
 class PictureTakerGallery : androidx.fragment.app.Fragment() {
@@ -43,7 +44,7 @@ class PictureTakerGallery : androidx.fragment.app.Fragment() {
             val intent = Intent()
             intent.type = "image/jpeg"
             intent.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(intent, "Select_picture"), GALLERY_INTENT_CALLED)
+            startActivityForResult(Intent.createChooser(intent, context?.getString(R.string.load_file_prompt)), GALLERY_INTENT_CALLED)
         } else {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)

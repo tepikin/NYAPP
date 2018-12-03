@@ -3,6 +3,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion compileSdk_version.toInteger()
@@ -25,7 +27,7 @@ android {
             keyAlias 'NYAPP'
             keyPassword 'kmdf9834fg0gbv'
             storeFile file('../keystore')
-            storePassword 'kmdf9834fg0gbv)'
+            storePassword 'kmdf9834fg0gbv'
             v1SigningEnabled true
             v2SigningEnabled true
         }
@@ -63,6 +65,8 @@ dependencies {
     implementation 'android.arch.navigation:navigation-ui-ktx:1.0.0-alpha07'
     implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha11'
     implementation 'com.google.android.material:material:1.1.0-alpha01'
+    implementation 'com.google.firebase:firebase-crash:16.2.0'
+    implementation 'com.google.firebase:firebase-core:16.0.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
@@ -83,5 +87,8 @@ dependencies {
     implementation "org.jetbrains.anko:anko-support-v4-commons:$anko_version"
     implementation "org.jetbrains.anko:anko-support-v4:$anko_version"
     implementation "org.jetbrains.anko:anko-constraint-layout:$anko_version"
-    implementation 'com.karumi:dexter:5.0.0'
+    implementation "com.karumi:dexter:5.0.0"
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.6@aar') {
+        transitive = true;
+    }
 }

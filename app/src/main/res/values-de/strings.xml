@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="permissions_request_message">Zugriffsrechte benötigt</string>
+    <string name="save_file_failed">Bild kann nicht gespeichert werden</string>
+    <string name="load_file_failed">Bild kann nicht geladen werden</string>
+    <string name="permissions_request_button">Einstellungen</string>
+    <string name="load_file_prompt">Bild auswählen werden</string>
+</resources>
