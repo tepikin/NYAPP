@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">StickersNY</string>
     <string name="title_activity_edit" translatable="false">StickersNY</string>
-    <string name="privacy_policy_link" translatable="false">https://github.com/tepikin/NYAPP/blob/master/Privacy%20policy.html</string>
+    <string name="privacy_policy_link" translatable="false">https://raw.githubusercontent.com/tepikin/NYAPP/master/Privacy%20policy.html</string>
     <string name="save_file_failed">Can\'t save image</string>
     <string name="save_file_failed_no_space">No space left on device</string>
     <string name="load_file_failed">Can\'t load image</string>
