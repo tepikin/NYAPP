@@ -691,7 +691,8 @@ if (getDrawable()==null)return;
         }
         if (isScaleBaseBitmap) {
             super.onTouchEvent(event);
-        }else {
+        }
+        {
 
             gestureDetector.onTouchEvent(event);
             if (isRotateScroll) {
