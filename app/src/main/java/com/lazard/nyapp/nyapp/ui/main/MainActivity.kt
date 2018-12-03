@@ -15,6 +15,7 @@ import com.lazard.nyapp.nyapp.ui.BaseActivity
 import com.lazard.nyapp.nyapp.ui.edit.EditActivity
 import com.lazard.nyapp.picturetaker.PictureTaker
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.browse
 import java.io.File
 
 class MainActivity : BaseActivity() {
@@ -50,6 +51,7 @@ class MainActivity : BaseActivity() {
         gallerySmall.setOnClickListener { PictureTaker.takeFromGallery(this) { onUriSelected(it) } }
         cameraBig.setOnClickListener { PictureTaker.takeFromCamera(this) { onUriSelected(Uri.fromFile(File(it))) } }
         cameraSmall.setOnClickListener { PictureTaker.takeFromCamera(this) { onUriSelected(Uri.fromFile(File(it))) } }
+        privacyPolicyView.setOnClickListener { browse(getString(R.string.privacy_policy_link),true) }
     }
 
     fun onUriSelected(uri:Uri?){

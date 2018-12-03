@@ -63,4 +63,14 @@
             android:tint="@color/selector_tint_black_yellow_press"
             android:layout_gravity="top|left"
             android:id="@+id/cameraSmall"/>
+
+    <TextView
+            android:text="@string/privacy_policy_title"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:id="@+id/privacyPolicyView"/>
 </FrameLayout>
