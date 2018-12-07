@@ -11,11 +11,15 @@ import android.R.attr.name
 import android.os.Bundle
 import android.os.PersistableBundle
 import com.crashlytics.android.Crashlytics;
+import com.lazard.nyapp.nyapp.R
 import io.fabric.sdk.android.Fabric;
+import io.fabric.sdk.android.services.settings.IconRequest.build
 
 
 
-open class BaseActivity : AppCompatActivity() {
+
+
+open class BaseActivity : BaseActivityImpl() {
     val mFirebaseAnalytics by lazy { FirebaseAnalytics.getInstance(this)}
     val baseJob = Job()
     val uiScope = CoroutineScope(Dispatchers.Main + baseJob)

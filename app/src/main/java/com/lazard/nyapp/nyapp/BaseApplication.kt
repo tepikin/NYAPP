@@ -1,8 +1,8 @@
 package com.lazard.nyapp.nyapp
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 
-class BaseApplication : Application() {
+class BaseApplication : MultiDexApplication() {
     companion object {
         var instance : BaseApplication? = null
     }
