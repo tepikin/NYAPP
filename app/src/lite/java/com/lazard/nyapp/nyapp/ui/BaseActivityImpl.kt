@@ -30,6 +30,8 @@ open class BaseActivityImpl : AppCompatActivity() {
         val adRequest = AdRequest.Builder()
             .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
             .addTestDevice("E9E948CD0C00C42A7339DD77DCF5A333")//samsung test device
+            .addTestDevice("941CD49D83E7670F3F20CADD8C8F8A0B")//samsung test device
+            .addTestDevice("08F3F2B9E02040A8BD46ADF3582F7758")//honor test device
             .build()
         adView?.loadAd(adRequest)
     }
