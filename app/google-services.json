@@ -89,6 +89,69 @@
         }
       },
       "admob_app_id": "ca-app-pub-6161644866653093~1103756003"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653778938847:android:ac5a5f2fb39a51b6",
+        "android_client_info": {
+          "package_name": "com.lazard.vdapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653778938847-oupl8mncpvpikehpsb7geb41vibddnhg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5QjJFRimtHEhuQ4UJWiGrr_cBLn1AKqE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653778938847:android:e718acc188e4e898",
+        "android_client_info": {
+          "package_name": "com.lazard.vdapp.lite"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653778938847-oupl8mncpvpikehpsb7geb41vibddnhg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5QjJFRimtHEhuQ4UJWiGrr_cBLn1AKqE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      },
+      "admob_app_id": "ca-app-pub-6161644866653093~8729861900"
     }
   ],
   "configuration_version": "1"

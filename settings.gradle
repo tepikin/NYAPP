@@ -1,1 +1,1 @@
-include ':app', ':PictureTaker', ':androidSVG_12'
+include ':app', ':PictureTaker', ':androidSVG_12', ':vdapp', ':nyapp'

@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
 
@@ -9,7 +9,6 @@ apply plugin: 'io.fabric'
 android {
     compileSdkVersion compileSdk_version.toInteger()
     defaultConfig {
-        applicationId "com.lazard.nyapp.nyapp"
         minSdkVersion minSdk_version.toInteger()
         targetSdkVersion targetSdk_version.toInteger()
         versionCode 1
@@ -22,40 +21,18 @@ android {
             }
         }
     }
-
-    signingConfigs {
-        tb {
-            keyAlias 'NYAPP'
-            keyPassword 'kmdf9834fg0gbv'
-            storeFile file('../keystore')
-            storePassword 'kmdf9834fg0gbv'
-            v1SigningEnabled true
-            v2SigningEnabled true
-        }
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.tb
-        }
-    }
-
     flavorDimensions "base"
 
     productFlavors {
         lite {
-            applicationId "com.lazard.nyapp.nyapp.lite"
             buildConfigField "boolean", "IS_PRO_VERSION", "false"
             dimension "base"
         }
         pro {
-            applicationId "com.lazard.nyapp.nyapp"
             buildConfigField "boolean", "IS_PRO_VERSION", "true"
             dimension "base"
         }
     }
-
     externalNativeBuild {
         cmake {
             path "CMakeLists.txt"
